@@ -2,14 +2,13 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Korzinka Market</title>
+<title>Mahsulotlar</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-<h1>Korzinka Market</h1>
+<h1>Mahsulotlar</h1>
 </header>
 
 <nav>
@@ -23,13 +22,34 @@
 </nav>
 
 <div class="container">
-<h2>Xush kelibsiz!</h2>
-<p>Eng sifatli mahsulotlar va arzon narxlar.</p>
+<div class="products">
+
+<div class="card">
+<h3>Olma</h3>
+<p>12 000 so'm</p>
+<button onclick="addToCart('Olma')">
+Savatga qo'shish
+</button>
 </div>
 
-<footer>
-<p>© 2026 Korzinka Market</p>
-</footer>
+<div class="card">
+<h3>Sut</h3>
+<p>15 000 so'm</p>
+<button onclick="addToCart('Sut')">
+Savatga qo'shish
+</button>
+</div>
+
+<div class="card">
+<h3>Non</h3>
+<p>4 000 so'm</p>
+<button onclick="addToCart('Non')">
+Savatga qo'shish
+</button>
+</div>
+
+</div>
+</div>
 
 <script src="js/script.js"></script>
 </body>
