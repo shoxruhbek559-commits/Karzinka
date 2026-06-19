@@ -1,75 +1,66 @@
-let endDate = new Date("December 31, 2026 23:59:59").getTime();
-
-setInterval(function () {
-    let now = new Date().getTime();
-    let distance = endDate - now;
-
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
-    let hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
-
-    document.getElementById("countdown").innerHTML =
-        days + " kun " + hours + " soat qoldi";
-}, 1000);
-
 let cartCount = 0;
+let cartTotal = 0;
+let countdownInterval;
 
-// 🛒 Savatga qo‘shish
+/* 🛒 SAVATGA QO‘SHISH */
 function addToCart(productName, price) {
     cartCount++;
+    cartTotal += price || 0;
 
     alert(
         productName +
-        " savatga qo‘shildi!\nNarxi: " +
-        price +
-        " so'm\nJami mahsulotlar: " +
-        cartCount
+        " savatga qo‘shildi!\n" +
+        "Narxi: " + (price || 0) + " so'm\n" +
+        "Jami mahsulot: " + cartCount
     );
 
     updateCartUI();
 }
 
-// 🧾 Cart UI yangilash (agar keyin qo‘shmoqchi bo‘lsang)
+/* 🧾 CART UI (agar element bo‘lsa) */
 function updateCartUI() {
-    console.log("Savatdagi mahsulotlar soni: " + cartCount);
+    const el = document.getElementById("cart");
+
+    if (el) {
+        el.innerText = "Savat: " + cartCount;
+    }
 }
 
-// ⏳ Aksiya countdown (sales sahifasi uchun)
+/* ⏳ COUNTDOWN */
 function startCountdown() {
-    let endDate = new Date("December 31, 2026 23:59:59").getTime();
+    const endDate = new Date("December 31, 2026 23:59:59").getTime();
 
-    setInterval(function () {
-        let now = new Date().getTime();
-        let distance = endDate - now;
+    countdownInterval = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = endDate - now;
+
+        const el = document.getElementById("countdown");
+
+        if (!el) return;
 
         if (distance < 0) {
-            document.getElementById("countdown").innerHTML =
-                "Aksiya tugadi!";
+            clearInterval(countdownInterval);
+            el.innerHTML = "Aksiya tugadi!";
             return;
         }
 
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) /
+            (1000 * 60));
 
-        let minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
-
-        document.getElementById("countdown").innerHTML =
+        el.innerHTML =
             days + " kun " + hours + " soat " + minutes + " daqiqa qoldi";
     }, 1000);
 }
 
-// 📌 Sahifa yuklanganda avtomatik ishlash
+/* 🚀 AUTO START */
 document.addEventListener("DOMContentLoaded", function () {
-    if (document.getElementById("countdown")) {
-        startCountdown();
-    }
+    startCountdown();
 });
+
+/* 👋 WELCOME MESSAGE (HTML bilan mos) */
+function showMessage() {
+    alert("Saytimizga xush kelibsiz!");
+}
